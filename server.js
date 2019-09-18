@@ -27,39 +27,28 @@ res.send(superHeroes[req.params.index]);
 
 // Create post route.  Post to the array
 // posting a new hero (hero) to the array using the req.body - We are putting the new item into the body
+// key hero and enter name of the hero to add to array
 app.post("/superheroes", (req, res)=>{
-  superHeroes.push(req.body.hero);
+    console.log(req.body);
+    res.send(req.body.hero);
+  //superHeroes.push(req.body.hero);
 })
 
 //update a superhero
-// app.put('/superheroes/:index', function (req,res) {
-//   superHeroes.push(req.body.hero)
-// })
-
-
-
-app.delete('/superheroes/:index', function (req,res){
-  res.send(req.params.index);
+app.put('/superheroes/:index', (req,res) =>{
+  superHeroes[req.params.index] = req.body;
+  res.redirect(`/superheroes/${req.params.index}`)
 })
 
 
-// });
-
-
-// app.get('/mars-missions/missions', (req,res) =>{
-//   //res.render('show.ejs');
-//   res.send(missions);
-// });
-
-// // id of each mission
-// app.get('/mars-missions/missions/:id', (req,res) =>{
-//   res.render('views', {name : missions[req.params.id]});
-//   //res.send(missions[req.params.id]);
-// });
-
-// app.post('/mars-missions', (req,res)=>{
-//   res.send(mission);
-// })
+app.delete('/superheroes/:index', (req,res, next) =>{
+    //req.params.index
+    hero.findByIdAndRemove({_id: req.params.id}
+    //console.log(req.params.id);
+    res.send(hero);
+//   superheroes.splice(req.params.index, 1);
+//   res.redirect('/superheroes')
+})
 
 
 const port = process.env.PORT || 3000;
